@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% block container %}
+<div class="layer">
+    <div class="list-group">
+      <a href="#!" class="list-group-item list-group-item-action list-group-item-success">Скан образы инвентарного номера: {{fn}}</a>
+    </div>
+    {% for i in docform %}
+    <img src="data:image/png;base64,{{i}}" class="img-thumbnail">
+    <!--<a href = "http://127.0.0.1:8000/media/photo/{{i.file}}">{{i.file|default_if_none:"&nbsp;"}}</a>-->
+    {% endfor%}
+    <!--<a type="button" class="btn btn-success" href="/detail/{{ fn_id }}">Редактировать</a>-->
+
+</div>
+
+{%endblock%}

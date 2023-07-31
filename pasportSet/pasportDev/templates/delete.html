@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block container %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Удалить Заявление об установлении кадастровой стоимости объекта недвижимости в размере его рыночной стоимости</h5>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            <div class="alert alert-warning" role="alert">
+                Вы уверены, что хотите удалить {{obj.inventerNumber}}?
+            </div>
+            <button type="submit" class="btn btn-danger">Удалить</button>
+            <a type="button" class="btn btn-primary" href="/detail/{{obj.id}}">Назад</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

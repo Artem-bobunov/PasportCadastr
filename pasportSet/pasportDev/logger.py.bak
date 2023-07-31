@@ -1,0 +1,41 @@
+from datetime import datetime
+import pandas as pd
+import csv
+
+now = datetime.now()
+dt_string =  now.strftime("%d.%m.%Y")
+now = datetime.now().time()
+
+
+file = 'C:/pasport/pasportSet/media/logger/log.txt'
+file_csv = r'C:/pasport/pasportSet/media/logger/log.csv'
+
+class LoggerPasport:
+
+    def __init__(self,users, number):
+        self.users = str(users)
+        self.number = str(number)
+
+    def add_record(self):
+        with open(file, 'a') as f:
+            f.writelines("{},{},{},{} \n".format(self.users, self.number,dt_string, now))
+            f.close()
+        
+
+    def update_record(self):
+        with open (file,'a') as f:`
+            #for i in f.readline():
+            f.writelines('{},{},{},{} \n '.format(self.users, self.number,dt_string,now))
+            f.close()
+                #print("Пользователь {} обновил запись под № {}".format(self.users, self.number))
+        
+    def delete_record(self):
+        with open(file, 'a') as f:
+            f.write('{},{},{},{} \n '.format(self.users, self.number,dt_string,now))
+            f.close()
+
+
+
+
+
+

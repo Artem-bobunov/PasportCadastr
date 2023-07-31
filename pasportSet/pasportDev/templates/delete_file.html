@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% block container %}
+<form method="post"  enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for i in doc%}
+    <input  type="checkbox" name="check"  value="{{i.file}}">
+    <a>{{i.file}}</a><br>
+
+
+    {%endfor%}
+    <button type="submit" class="btn btn-danger">Удалить объекты</button>
+
+</form>
+{%endblock%}

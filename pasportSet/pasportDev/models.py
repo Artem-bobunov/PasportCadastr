@@ -1,0 +1,91 @@
+from django.db import models
+from django.conf import settings
+import os
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+def validate_file_extension(value):
+
+    ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
+    valid_extensions = ['.pdf', '.doc', '.docx', '.jpg', '.png', '.xlsx', '.xls']
+    if not ext.lower() in valid_extensions:
+        raise ValidationError(u'Unsupported file extension.')
+
+# Create your models here.
+class Building(models.Model):
+    # Городское/ сельское поселение
+    urbanRualSet = models.CharField(max_length=200, null=True, blank=True)
+    # Муниципальный район
+    municipalArea = models.CharField(max_length=200, null=True, blank=True)
+    # Городской округ
+    urbanDistrict = models.CharField(max_length=200, null=True, blank=True)
+    # Внутригородской район
+    intracityDistrict = models.CharField(max_length=200, null=True, blank=True)
+    # улица, пер. и т.д.
+    street = models.CharField(max_length=500, null=True, blank=True)
+    # номер дома
+    numberHouse = models.CharField(max_length=100, null=True, blank=True)
+    # номер корпуса
+    numberCorpus = models.CharField(max_length=100, null=True, blank=True)
+    # номер комнаты, квартиры
+    numberRootFlat = models.CharField(max_length=100, null=True, blank=True)
+
+
+class PasportModel (models.Model):
+
+    # Вид объекта
+    objectType = (
+        ('Здание', 'Здание'),
+        ('Помещение', 'Помещение'),
+        ('Сооружение', 'Сооружение'),
+    )
+    #Дата внесения 
+    dateInputPS = models.DateField(null=True, blank=True)
+    userbti = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True, blank=True)
+    city = models.ForeignKey(Building, on_delete=models.CASCADE,null=True, blank=True)
+    #№ пп
+    #numberpp = models.CharField(max_length = 300,null=True, blank=True)
+    #Инвентарный номер
+    inventerNumber = models.CharField(max_length = 300,null=True, blank=True)
+    #Ранее присвоенный инвентарный номер
+    earlyNumber = models.CharField(max_length = 300,null=True, blank=True)
+    #Вид объекта
+    viewObject = models.CharField(max_length = 300,null=True, blank=True, choices=objectType)
+    #Назначение
+    #purpose = models.CharField(max_length = 300,null=True, blank=True)
+    #Наименование объекта
+    nameObject = models.CharField(max_length = 300,null=True, blank=True)
+    #Дата первичного формирования инвентарного дела
+    dateInitialInvent = models.CharField(null=True, blank=True,max_length = 300) #было DateField
+    #Дата последнего обследования
+    dateLastExamination = models.DateField(null=True, blank=True)
+    #Год ввода в эксплуатацию
+    yearCommissioning = models.CharField(max_length = 300,null=True, blank=True)
+    #общая площадь
+    square = models.CharField(max_length = 100,null=True, blank=True)
+    #жилая площадь
+    residentialSquare = models.CharField(max_length = 300,null=True, blank=True)
+    #Право собственности до 01.01. 1999г.
+    ownershipBefore = models.CharField(max_length = 300,null=True, blank=True)
+    #Право собственности после  01.01. 1999г
+    ownershipAfter = models.CharField(max_length = 600,null=True, blank=True)
+    #Кем передан/ изготовлен
+    whoHanded = models.CharField(max_length = 300,null=True, blank=True)
+    #Оцифровка
+    #digitization = models.CharField(max_length = 100,null=True, blank=True)
+    #Примечание
+    remark = models.CharField(max_length = 300,null=True, blank=True)
+    #Дата выдачи инвентарного дела
+    dateIssueInventory =models.DateField(null=True, blank=True)
+    #Дата возврата дела
+    returnDate = models.DateField(max_length = 300,null=True, blank=True)
+    storage =  models.CharField("Место хранения документа", max_length=300,blank=True,null=True)
+
+
+
+
+class Documents(models.Model):
+    file_name = models.CharField(blank=True,null=True,max_length=500)#, validators=[validate_file_extension]
+    file_binary = models.BinaryField(null=True, blank=True,editable = True)
+    file_doc = models.ForeignKey(PasportModel, on_delete=models.SET_NULL, null=True, blank=True,db_column='id_pasport')
+    #Место хранения документа
+

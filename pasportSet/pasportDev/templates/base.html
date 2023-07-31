@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <style>
+body {
+    font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+    width: 140px;
+    position: fixed;
+    z-index: 1;
+    top: 147px;
+    left: 230px;
+    background: #eee;
+    overflow-x: hidden;
+    padding: 10px 0;
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #2196F3;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #064579;
+}
+
+.main {
+    margin-left: 140px; /* Same width as the sidebar + left position in px */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+</style>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    </head>
+<body>
+{% block content %}
+
+
+<nav class="navbar navbar-light " style="background-color:#ebebed;">
+  <div class="container-fluid">
+      <a class="navbar-brand logo" href="{%url 'home' %}">
+	  <img src="http://192.168.1.253:8000/static/rest_framework/img/logo.png">
+	  </a>
+      <div class="col-sm">
+      <p style="font-size: 14px;font-weight: bold; padding-left: 30px; margin:0; color:#363A48;">Государственное бюджетное учреждение Волгоградской области Центр государственной кадастровой оценки</p>
+    </div>
+      <div class="col">
+           <a class="btn" href="{%url 'create' %}" style="background-color:#076cf0; color:white;">Добавить дело</a >
+    </div>
+       <div class="col" style="margin-right:250px;">
+           <a class="btn btn-danger" href="admin/" >Администрирование</a >
+    </div>
+    <form class="form-inline" action="{% url 'search' %}" method="get">
+          <input class="form-control mr-sm-2" type="text" placeholder="Введите запрос" name="q">
+          <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>-->
+      </form>
+
+{% if user.is_authenticated %}
+      <div class="col">
+          <span class="badge badge-pill badge-primary" >{{user.username}}</span>
+          <a type="button" class="btn btn-success" href="{% url 'logout'%}">Выйти</a>
+      </div>
+      {% else%}
+      <div class="col">
+          <span class="badge badge-pill badge-primary">Гость</span>
+          <a type="button" class="btn btn-success" href="{% url 'login'%}">Войти</a>
+      </div>
+      {% endif %}
+  </div>
+
+</nav>
+
+<!-- Side navigation -->
+
+
+     <div class="container mt-3 "  style="padding: 1 10%" >
+
+  {% block container %}
+
+  {% endblock %}
+  </div>
+
+
+    {% endblock %}
+
+</body>
+
+</html>

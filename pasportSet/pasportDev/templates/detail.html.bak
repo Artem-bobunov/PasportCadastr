@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% load static %}
+{% block container %}
+<style>
+   .layer {
+    height: 100px; /* Высота блока */
+    width: 450px; /* Ширина блока */
+    overflow: scroll; /* Добавляем полосы прокрутки */
+    /*background: #fc0;  Цвет фона */
+    padding: 7px; /* Поля вокруг текста */
+    border: 1px solid #333; /* Параметры рамки */
+   }
+   table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+  </style>
+<div class="list-group list-group-flush">
+    <div class="card-header">
+	<div class = "row">
+		<div class = "col">
+			<h5 class="card-title">Информация о Кадастровом паспорте {{details.inventerNumber}}</h5>
+			<h6>Запись добавил: {{details.userbti}}</h6>
+			
+		</div>
+		<div class = "col-2">
+			<h6>Дата внесения:<br>{{details.dateInputPS}}</h6>
+		</div>
+    </div>
+    </div>
+    <div class="card">
+        <div class="card-body ">
+		
+		
+<h3>Место проживания собственика:</h3>
+
+<table style="width:100%" class="table-striped">
+  <tr >
+    <th ><center>Городское/сельское<br> поселение</center></th>
+    <th><center>Муниципальный<br> район</center></th>
+    <th><center>Городской<br> округ</center></th>
+    <th><center>Внутригородской<br> район</center></th>
+    <th><center>Улица,<br> пер. и т.д.</center></th>
+    <th><center>Номер<br> дома</center></th>
+    <th><center>Номер<br> корпуса</center></th>
+    <th><center>Номер комнаты,<br> квартиры</center></th>
+              
+  </tr>
+  <tr>
+    <td><center>{{ buildform.urbanRualSet|default_if_none:"&nbsp;"  }}</center></td>
+    <td><center>{{ buildform.municipalArea|default_if_none:"&nbsp;"  }}</center></td>
+    <td><center>{{ buildform.urbanDistrict|default_if_none:"&nbsp;"  }}</center></td>
+    <td><center>{{ buildform.intracityDistrict|default_if_none:"&nbsp;"  }}</center></td>
+    <td><center>{{ buildform.street|default_if_none:"&nbsp;"  }}</center></td>
+    <td><center>{{ buildform.numberHouse|default_if_none:"&nbsp;"  }}</center></td>
+    <td><center>{{ buildform.numberCorpus|default_if_none:"&nbsp;"  }}</center></td>
+    <td><center>{{ buildform.numberRootFlat|default_if_none:"&nbsp;"  }}</center></td>
+  </tr>
+</table>
+
+<div class="mt-4">
+	<h3>Подробная информация об инвентарном деле:</h3>
+
+	<table style="width:100%" class="table-striped">
+	  <tr>
+		<th style="width:45%" >Инвентарный номер</th>
+		<td><center>{{ details.inventerNumber|default_if_none:"&nbsp;"}}</center></td>
+	  </tr>
+	  <tr>
+		<th>Ранее присвоенный инвентарный номер</th>
+		<td><center>{{ details.earlyNumber|default_if_none:"&nbsp;"  }}</center></td>
+	  </tr>
+	  <tr>
+		<th>Вид объекта</th>
+		<td><center>{{ details.viewObject|default_if_none:"&nbsp;"  }}</center></td>
+	  </tr>
+	  <tr>
+		<th>Наименование объекта</th>
+		<td><center>{{ details.nameObject|default_if_none:"&nbsp;"  }}</center></td>
+	  </tr>
+	  <tr>
+		<th>Дата первичного формирования инвентарного дела</th>
+		<td><center>{{ details.dateInitialInvent|default_if_none:"&nbsp;"  }}</center></td>
+	  </tr>
+	  <tr>
+		<th>Дата последнего обследования</th>
+		<td><center>{{ details.dateLastExamination|default_if_none:"&nbsp;"  }}</center></td>
+	  </tr>
+	  <tr>
+		<th>Год ввода в эксплуатацию</th>
+		<td><center>{{ details.yearCommissioning|default_if_none:"&nbsp;"  }}</center></td>
+	  </tr>
+	  <tr>
+		<th>Дата последнего обследования</th>
+		<td><center>{{ details.dateLastExamination|default_if_none:"&nbsp;"  }}</center></td>
+	  </tr>
+	  <tr>
+		<th>Год ввода в эксплуатацию</th>
+		<td><center>{{ details.yearCommissioning|default_if_none:"&nbsp;"  }}</center></td>
+	  </tr>
+	  <tr>
+		<th>Общая площадь</th>
+		<td><center>{{ details.square|default_if_none:"&nbsp;"  }}</center></td>
+	  </tr>
+	  <tr>
+		<th>Жилая площадь</th>
+		<td><center>{{ details.residentialSquare|default_if_none:"&nbsp;"  }}</center></td>
+	  </tr>
+	  <tr>
+		<th>Право собственности до 01.01. 1999г.</th>
+		<td><center>{{ details.ownershipBefore|default_if_none:"&nbsp;"  }}</center></td>
+	  </tr>
+	  <tr>
+		<th>Право собственности после 01.01. 1999г.</th>
+		<td><center>{{ details.ownershipAfter|default_if_none:"&nbsp;"  }}</center></td>
+	  </tr>
+	  <tr>
+		<th>Кем передан/ изготовлен</th>
+		<td><center>{{ details.whoHanded|default_if_none:"&nbsp;"  }}</center></td>
+	  </tr>
+	  <tr>
+		<th>Примечание</th>
+		<td><center>{{ details.remark|default_if_none:"&nbsp;"  }}</center></td>
+	  </tr>
+	  <tr>
+		<th>Дата выдачи инвентарного дела</th>
+		<td><center>{{ details.dateIssueInventory|default_if_none:"&nbsp;"  }}</center></td>
+	  </tr>
+	  <tr>
+		<th>Дата возврата дела</th>
+		<td><center>{{ details.returnDate|default_if_none:"&nbsp;"  }}</center></td>
+	  </tr>
+	  <tr>
+		<th>Место хранения (адрес архива инвентарного дела )</th>
+		<td><center>{{ details.storage|default_if_none:"&nbsp;"  }}</center></td>
+	  </tr>
+	  
+	</table>
+</div>
+		
+           
+           
+		   
+
+
+        <div class = "mt-3">  
+            {% if user.is_authenticated %}
+                <a type="button" class="btn btn-primary ml-2" href="{%url 'home' %}">Назад</a>
+                <a type="button" class="btn btn-success ml-2" href="/update/{{ details.id }}">Редактировать</a>
+                <a type="button" class="btn btn-primary ml-2" href="/detail_image/{{ details.id }}">Просмотреть скан образы</a>
+				<a type="button" class="btn btn-danger " href="/delete/{{ details.id }}" style="margin-left:500px;">Удалить</a>
+            {% else %}
+                <a type="button" class="btn btn-primary" href="{%url 'home' %}">Назад</a>
+            {%endif%}
+		</div>
+
+        </div>
+    </div>
+    </div>
+{%endblock%}

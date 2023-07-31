@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block container %}
+{% if user.is_authenticated %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Внесение информации об Инвентарном деле</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+			
+			<div class="container">
+				<div class="row">
+					<div class="col">
+					 <h6>Инвентарный номер</h6> {{form.inventerNumber}}
+					</div>
+					<div class="col">
+					  <h6>Ранее присвоенный инвентарный номер</h6> {{form.earlyNumber}}
+					</div>
+					<div class="col">
+					  <h6>Городское/ сельское поселение</h6>{{build_form.urbanRualSet}}
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col ">
+					 <h6>Муниципальный район</h6>{{build_form.municipalArea}}
+					</div>
+					<div class="col">
+					  <h6>Городской округ</h6>{{build_form.urbanDistrict}}
+					</div>
+					<div class="col">
+					  <h6>Внутригородской район</h6>{{build_form.intracityDistrict}}
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col ">
+					 <h6>Улица, пер. и т.д.</h6>{{build_form.street}}
+					</div>
+					<div class="col">
+					  <h6>Номер дома</h6>{{build_form.numberHouse}}
+					</div>
+					<div class="col">
+					  <h6>Номер корпуса</h6>{{build_form.numberCorpus}}
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col ">
+					 <h6>Номер комнаты, квартиры</h6>{{build_form.numberRootFlat}}
+					</div>
+					<div class="col">
+					  <h6>Вид объекта</h6>{{form.viewObject}}
+					</div>
+					<div class="col">
+					  <h6>Наименование объекта</h6>{{form.nameObject}}
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col ">
+					  <h6>Дата первичного формирования инвентарного дела </h6>{{form.dateInitialInvent}}
+					</div>
+					<div class="col">
+					  <h6>Дата последнего обследования</h6>{{form.dateLastExamination}}
+					</div>
+					<div class="col">
+					  <h6>Год ввода в эксплуатацию</h6>{{form.yearCommissioning}}
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col-4 ">
+					  <h6>Общая площадь</h6>{{form.square}}
+					</div>
+					<div class="col">
+					 <h6>Кем передан/ изготовлен</h6>{{form.whoHanded}}
+					</div>
+					
+				</div>
+				<div class="row mt-3">
+					
+					<div class="col-4">
+					 <h6>Жилая площадь</h6>{{form.residentialSquare}}
+					</div>
+					<div class="col-2">
+					  <h6>Примечание</h6>{{form.remark}}
+					</div>
+				</div>
+				<div class="row mt-3">
+				<div class="col">
+					  <h6>Право собственности до 01.01. 1999г.</h6>{{form.ownershipBefore}}
+					</div>
+				</div>
+				<div class="row mt-3">
+				<div class="col ">
+					  <h6>Право собственности после 01.01. 1999г.</h6>{{form.ownershipAfter}}
+				</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col ">
+					  <h6>Дата выдачи инвентарного дел</h6>{{form.dateIssueInventory}}
+					</div>
+					<div class="col">
+					  <h6>Дата возврата дела</h6>{{form.returnDate}}
+					</div>
+					<div class="col">
+					  <h6>Место хранения документа</h6>{{form.storage}}
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col ">
+					  <h6>Выберите файл</h6>{{docform.file}}
+					</div>
+					<div class="col-2 mt-3"">
+					  <button type="submit" class="btn btn-success">Добавить</button>
+					</div>
+					
+					
+				</div>
+				
+			</div>
+            <!--<ul class="list-group" >
+              <li class="list-group-item"><h6>№ пп</h6>{{form.numberpp}}</li>
+              <li class="list-group-item"><h6>Инвентарный номер</h6> {{form.inventerNumber}}</li>
+              <li class="list-group-item"><h6>Ранее присвоенный инвентарный номер</h6> {{form.earlyNumber}}</li>
+              <li class="list-group-item"><h6>Городское/ сельское поселение</h6>{{build_form.urbanRualSet}}</li>
+              <li class="list-group-item"><h6>Муниципальный район</h6>{{build_form.municipalArea}}</li>
+
+              <li class="list-group-item"><h6>Городской округ</h6>{{build_form.urbanDistrict}}</li>
+              <li class="list-group-item"><h6>Внутригородской район</h6>{{build_form.intracityDistrict}}</li>
+              <li class="list-group-item"><h6>Улица, пер. и т.д.</h6>{{build_form.street}}</li>
+              <li class="list-group-item"><h6>Номер дома</h6>{{build_form.numberHouse}}</li>
+              <li class="list-group-item"><h6>Номер корпуса</h6>{{build_form.numberCorpus}}</li>
+
+              <li class="list-group-item"><h6>номер комнаты, квартиры</h6>{{build_form.numberRootFlat}}</li>
+              <li class="list-group-item"><h6>Вид объекта</h6>{{form.viewObject}}</li>
+              <li class="list-group-item"><h6>Назначение</h6>{{form.purpose}}</li>
+              <li class="list-group-item"><h6>Наименование объекта</h6>{{form.nameObject}}</li>
+              <li class="list-group-item"><h6>Дата первичного формирования инвентарного дела </h6>{{form.dateInitialInvent}}</li>
+
+              <li class="list-group-item"><h6>Дата последнего обследования</h6>{{form.dateLastExamination}}</li>
+              <li class="list-group-item"><h6>Год ввода в эксплуатацию</h6>{{form.yearCommissioning}}</li>
+              <li class="list-group-item"><h6>общая площадь</h6>{{form.square}}</li>
+
+             <li class="list-group-item"><h6>Жилая площадь</h6>{{form.residentialSquare}}</li>
+             <li class="list-group-item"><h6>Право собственности до 01.01. 1999г.</h6>{{form.ownershipBefore}}</li>
+             <li class="list-group-item"><h6>Право собственности после 01.01. 1999г.</h6>{{form.ownershipAfter}}</li>
+             <li class="list-group-item"><h6>Кем передан/ изготовлен</h6>{{form.whoHanded}}</li>
+             <li class="list-group-item"><h6>Оцифровка</h6>{{form.digitization}}</li>
+             <li class="list-group-item"><h6>Примечание</h6>{{form.remark}}</li>
+             <li class="list-group-item"><h6>Дата выдачи инвентарного дел</h6>{{form.dateIssueInventory}}</li>
+             <li class="list-group-item"><h6>Дата возврата дела</h6>{{form.returnDate}}</li>
+             <li class="list-group-item"><h6>Место хранения документа</h6>{{form.storage}}</li>
+
+
+             <li class="list-group-item"><h6>Файл</h6>{{docform.file}}</li>
+
+
+            </ul>
+            <button type="submit" class="btn btn-success">Добавить</button>-->
+        </form>
+    </div>
+</div>
+{%endif%}
+{% endblock %}
